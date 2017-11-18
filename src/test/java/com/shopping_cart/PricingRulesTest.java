@@ -32,4 +32,19 @@ public class PricingRulesTest {
 		ArrayList<Item> returnedItems = pricingRules.apply(items);
 		Assert.assertEquals(items, returnedItems);
 	}
+	
+	@Test
+	public void whenThreeAppleTVsOnlyPayForTwo(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		double appleTvPrice = Products.getAtv().getPrice();
+		items.add(Products.getAtv());
+		items.add(Products.getAtv());
+		items.add(Products.getAtv());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		Assert.assertTrue(2*appleTvPrice == finalPrice);
+	}	
 }
