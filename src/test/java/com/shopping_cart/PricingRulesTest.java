@@ -2,7 +2,10 @@ package com.shopping_cart;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Test;
+
+import com.products.Products;
 
 public class PricingRulesTest {
 
@@ -18,4 +21,15 @@ public class PricingRulesTest {
 		pricingRules.apply(null);
 	}
 	
+	@Test
+	public void whenNoDiscountIsAppliedItemsWontChange(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		Item item1 = Products.getAtv();
+		items.add(item1);
+		Item item2 = Products.getIpad();
+		items.add(item2);
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		Assert.assertEquals(items, returnedItems);
+	}
 }
