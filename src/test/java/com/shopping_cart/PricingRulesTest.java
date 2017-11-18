@@ -47,4 +47,21 @@ public class PricingRulesTest {
 			finalPrice += item.getPrice();
 		Assert.assertTrue(2*appleTvPrice == finalPrice);
 	}	
+	
+	@Test
+	public void whenThreeAppleTVsOnlyPayForTwoPlusOtherProduct(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		double appleTvPrice = Products.getAtv().getPrice();
+		double iPadPrice = Products.getIpad().getPrice();
+		items.add(Products.getAtv());
+		items.add(Products.getAtv());
+		items.add(Products.getAtv());
+		items.add(Products.getIpad());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		Assert.assertTrue(2*appleTvPrice + iPadPrice == finalPrice);
+	}	
 }
