@@ -6,6 +6,8 @@ import java.util.HashMap;
 import com.products.Products;
 
 public class PricingRules {
+	private final double IPAD_BULK_PRICE = 499.99;
+	
 	public ArrayList<Item> apply(ArrayList<Item> items){
 		if (items == null || items.isEmpty())
 			throw new RuntimeException("Invalid number of items");
@@ -31,6 +33,14 @@ public class PricingRules {
 			for (int i = 0; i < numberOfFreeAtvs; i++)
 				items.add(atv);
 		}
+		
+		//bulk iPad discount - buy more than 4 and pay 499.99 each
+		String ipadSku = Products.getIpad().getSku();
+		Integer ipadCount = itemCounts.getOrDefault(ipadSku, 0);
+		if (ipadCount > 4) 			
+			items.stream()
+				.filter(item->item.getSku().equals(ipadSku))
+				.forEach(item->item.setPrice(IPAD_BULK_PRICE));
 			
 		return items;
 	}
