@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import com.products.Products;
 
-import java.util.ArrayList;
-
 import org.junit.Assert;
 
 public class CheckoutTest {

@@ -16,6 +16,7 @@ public class Checkout {
 	}
 	
 	public double total(){
+		items = pricingRules.apply(getItems());
 		double finalPrice = 0;
 		for (Item item : getItems())
 			finalPrice += item.getPrice();
