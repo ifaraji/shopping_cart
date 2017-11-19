@@ -63,5 +63,56 @@ public class PricingRulesTest {
 		for (Item item : returnedItems)
 			finalPrice += item.getPrice();
 		Assert.assertTrue(2*appleTvPrice + iPadPrice == finalPrice);
-	}	
+	}
+	
+	@Test
+	public void whenMoreThanFourIpadPayLess(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		//double iPadPrice = Products.getIpad().getPrice();
+		double iPadBulkPrice = 499.99;
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		Assert.assertTrue(items.size()*iPadBulkPrice == finalPrice);
+	}
+	
+	@Test
+	public void whenLessThanFourIpadPayNormal(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		double iPadPrice = Products.getIpad().getPrice();
+		//double iPadBulkPrice = 499.99;
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		Assert.assertTrue(items.size()*iPadPrice == finalPrice);
+	}
+	
+	@Test
+	public void whenFourIpadPayNormal(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		double iPadPrice = Products.getIpad().getPrice();
+		//double iPadBulkPrice = 499.99;
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		Assert.assertTrue(items.size()*iPadPrice == finalPrice);
+	}
 }
