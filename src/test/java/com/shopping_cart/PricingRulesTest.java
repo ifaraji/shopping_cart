@@ -135,9 +135,9 @@ public class PricingRulesTest {
 		PricingRules pricingRules = new PricingRules();
 		ArrayList<Item> returnedItems = pricingRules.apply(items);
 		String mbpSku = Products.getMbp().getSku();
-		String atvSku = Products.getAtv().getSku();
+		String vgaSku = Products.getVga().getSku();
 		long mbpCount = returnedItems.stream().filter(item->item.getSku().equals(mbpSku)).count();
-		long atvCount = returnedItems.stream().filter(item->item.getSku().equals(atvSku)).count();
+		long atvCount = returnedItems.stream().filter(item->item.getSku().equals(vgaSku)).count();
 		Assert.assertTrue(mbpCount == atvCount);
 	}
 }
