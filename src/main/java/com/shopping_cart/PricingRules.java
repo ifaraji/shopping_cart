@@ -48,16 +48,19 @@ public class PricingRules {
 		Integer mbpCount = itemCounts.getOrDefault(mbpSku, 0);
 		Integer vgaCount = itemCounts.getOrDefault(vgaSku, 0);
 		if (mbpCount > 0) {
-			for (int i = 0; i < mbpCount-vgaCount; i++){
-				Item vga = Products.getVga();
-				vga.setPrice(0);
-				items.add(vga);
+			//remove all VGAs
+			items.removeIf(item->item.getSku().equals(vgaSku));
+			if (vgaCount < mbpCount)
+				vgaCount = mbpCount;
+			//Add VGA adapters to the list with adjusted price
+			for (int i = 0; i < vgaCount; i++){
+				Item item = Products.getVga();
+				if (i < mbpCount)
+					item.setPrice(0);
+				items.add(item);
 			}
-			//adjusting the price of pre-scanned VGA adapters
-			items.stream()
-				.filter(item->item.getSku().equals(vgaSku))
-				.forEach(item->item.setPrice(0));
 		}
+		
 		return items;
 	}
 }
