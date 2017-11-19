@@ -42,6 +42,7 @@ public class CheckoutTest {
 		double finalPrice = 0;
 		for (Item item : co.getItems())
 			finalPrice += item.getPrice();
+		finalPrice -= Products.getVga().getPrice(); //because of free VGA adapter per MacBookPro deal 
 		Assert.assertTrue(finalPrice == co.total());
 	}
 	
