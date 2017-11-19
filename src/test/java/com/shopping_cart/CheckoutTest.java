@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import com.products.Products;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 
 public class CheckoutTest {
@@ -43,5 +45,37 @@ public class CheckoutTest {
 		for (Item item : co.getItems())
 			finalPrice += item.getPrice();
 		Assert.assertTrue(finalPrice == co.total());
+	}
+	
+	@Test
+	public void whenScanningThreeAtvsAndOneVga(){
+		//example 1
+		co.scan(Products.getAtv());
+		co.scan(Products.getAtv());
+		co.scan(Products.getAtv());
+		co.scan(Products.getVga());
+		Assert.assertTrue(co.total() == 249);
+	}
+	
+	@Test
+	public void whenScanningTwoAtvsAndFiveIpads(){
+		//example 2
+		co.scan(Products.getAtv());
+		co.scan(Products.getAtv());
+		co.scan(Products.getIpad());
+		co.scan(Products.getIpad());
+		co.scan(Products.getIpad());
+		co.scan(Products.getIpad());
+		co.scan(Products.getIpad());
+		Assert.assertTrue(co.total() == 2718.95);
+	}
+	
+	@Test
+	public void whenScanningOneMbpOneVgaAndOneIpad(){
+		//example 3
+		co.scan(Products.getMbp());
+		co.scan(Products.getVga());
+		co.scan(Products.getIpad());
+		Assert.assertTrue(co.total() == 1949.98);
 	}
 }
