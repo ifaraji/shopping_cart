@@ -46,8 +46,11 @@ public class PricingRules {
 		String mbpSku = Products.getMbp().getSku();
 		Integer mbpCount = itemCounts.getOrDefault(mbpSku, 0);
 		if (mbpCount > 0)
-			for (int i = 0; i < mbpCount; i++)
-				items.add(Products.getVga());
+			for (int i = 0; i < mbpCount; i++){
+				Item vga = Products.getVga();
+				vga.setPrice(0);
+				items.add(vga);
+			}
 		return items;
 	}
 }
