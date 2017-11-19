@@ -115,4 +115,29 @@ public class PricingRulesTest {
 			finalPrice += item.getPrice();
 		Assert.assertTrue(items.size()*iPadPrice == finalPrice);
 	}
+	
+	@Test
+	public void whenOneMacBookProGetOneFreeVgaAdapter(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(Products.getMbp());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		Assert.assertTrue(returnedItems.size() == 2);
+		Assert.assertTrue(returnedItems.contains(Products.getVga()));
+	}
+	
+	@Test
+	public void whenAnyMacBookProGetFreeVgaAdapters(){
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(Products.getMbp());
+		items.add(Products.getMbp());
+		items.add(Products.getMbp());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		String mbpSku = Products.getMbp().getSku();
+		String atvSku = Products.getAtv().getSku();
+		long mbpCount = returnedItems.stream().filter(item->item.getSku().equals(mbpSku)).count();
+		long atvCount = returnedItems.stream().filter(item->item.getSku().equals(atvSku)).count();
+		Assert.assertTrue(mbpCount == atvCount);
+	}
 }
