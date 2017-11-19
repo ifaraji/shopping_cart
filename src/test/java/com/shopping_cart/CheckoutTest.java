@@ -32,4 +32,16 @@ public class CheckoutTest {
 		co.scan(Products.getIpad());
 		Assert.assertEquals(4, co.getItems().size());
 	}
+	
+	@Test
+	public void whenCheckoutTotalIsCalledSumValueIsReturned(){ 
+		co.scan(Products.getAtv());
+		co.scan(Products.getMbp());
+		co.scan(Products.getVga());
+		co.scan(Products.getIpad());
+		double finalPrice = 0;
+		for (Item item : co.getItems())
+			finalPrice += item.getPrice();
+		Assert.assertTrue(finalPrice == co.total());
+	}
 }
