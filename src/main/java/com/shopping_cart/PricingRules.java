@@ -21,7 +21,7 @@ public class PricingRules {
 		
 		//Apple TV 3 for 2 deal
 		String atvSku = Products.getAtv().getSku();
-		Integer atvCount = itemCounts.get(atvSku);
+		Integer atvCount = itemCounts.getOrDefault(atvSku, 0);
 		if (atvCount >= 3){
 			int numberOfFreeAtvs = atvCount / 3;
 			Item atv = Products.getAtv();
@@ -31,7 +31,7 @@ public class PricingRules {
 			for (int i = 0; i < numberOfFreeAtvs; i++)
 				items.add(atv);
 		}
-		
+			
 		return items;
 	}
 }
