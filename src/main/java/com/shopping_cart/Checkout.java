@@ -16,7 +16,10 @@ public class Checkout {
 	}
 	
 	public double total(){
-		return 0;
+		double finalPrice = 0;
+		for (Item item : getItems())
+			finalPrice += item.getPrice();
+		return finalPrice;
 	}
 	
 	public ArrayList<Item> getItems(){
