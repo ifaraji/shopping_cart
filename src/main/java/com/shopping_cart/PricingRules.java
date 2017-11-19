@@ -8,6 +8,11 @@ import com.products.Products;
 public class PricingRules {
 	private final double IPAD_BULK_PRICE = 499.99;
 	
+	/**
+	 * Applies the pricing rules to the given list of items. 
+	 * @param items The given list of items
+	 * @return the list of items with their prices adjusted accordingly
+	 */
 	public ArrayList<Item> apply(ArrayList<Item> items){
 		if (items == null || items.isEmpty())
 			throw new RuntimeException("Invalid number of items");
@@ -26,9 +31,11 @@ public class PricingRules {
 		Integer atvCount = itemCounts.getOrDefault(atvSku, 0);
 		if (atvCount >= 3){
 			int numberOfFreeAtvs = atvCount / 3;
+			//remove the Apple TVs that should be free
 			Item atv = Products.getAtv();
 			for (int i = 0; i < numberOfFreeAtvs; i++)
 				items.remove(atv);
+			//Add the Apple TVs back to the list with adjusted price 
 			atv.setPrice(0);
 			for (int i = 0; i < numberOfFreeAtvs; i++)
 				items.add(atv);
