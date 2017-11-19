@@ -12,7 +12,7 @@ public class Checkout {
 	}
 	
 	public void scan(Item item){
-		
+		items.add(item);
 	}
 	
 	public double total(){
