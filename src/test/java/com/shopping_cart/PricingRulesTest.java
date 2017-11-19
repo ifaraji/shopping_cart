@@ -140,4 +140,54 @@ public class PricingRulesTest {
 		long atvCount = returnedItems.stream().filter(item->item.getSku().equals(vgaSku)).count();
 		Assert.assertTrue(mbpCount == atvCount);
 	}
+	
+	@Test
+	public void whenScanningThreeAtvsAndOneVga(){
+		//example 1
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(Products.getAtv());
+		items.add(Products.getAtv());
+		items.add(Products.getAtv());
+		items.add(Products.getVga());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		Assert.assertTrue(finalPrice == 249);
+	}
+	
+	@Test
+	public void whenScanningTwoAtvsAndFiveIpads(){
+		//example 2
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(Products.getAtv());
+		items.add(Products.getAtv());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		items.add(Products.getIpad());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		Assert.assertTrue(finalPrice == 2718.95);
+	}
+	
+	@Test
+	public void whenScanningOneMbpOneVgaAndOneIpad(){
+		//example 1
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(Products.getMbp());
+		items.add(Products.getVga());
+		items.add(Products.getIpad());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		Assert.assertTrue(finalPrice == 1949.98);
+	}
 }
