@@ -5,6 +5,11 @@ public class Item {
 	private String sku;
 	private double price;
 	
+	public Item(String name, String sku, double price) {
+		this.name = name;
+		this.sku = sku;
+		this.price = price;
+	}
 	public String getName() {
 		return name;
 	}
