@@ -41,7 +41,13 @@ public class PricingRules {
 			items.stream()
 				.filter(item->item.getSku().equals(ipadSku))
 				.forEach(item->item.setPrice(IPAD_BULK_PRICE));
-			
+		
+		//free VGA adapter with every MacBook Pro
+		String mbpSku = Products.getMbp().getSku();
+		Integer mbpCount = itemCounts.getOrDefault(mbpSku, 0);
+		if (mbpCount > 0)
+			for (int i = 0; i < mbpCount; i++)
+				items.add(Products.getVga());
 		return items;
 	}
 }
