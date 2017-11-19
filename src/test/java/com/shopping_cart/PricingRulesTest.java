@@ -178,7 +178,7 @@ public class PricingRulesTest {
 	
 	@Test
 	public void whenScanningOneMbpOneVgaAndOneIpad(){
-		//example 1
+		//example 3
 		ArrayList<Item> items = new ArrayList<Item>();
 		items.add(Products.getMbp());
 		items.add(Products.getVga());
@@ -189,5 +189,25 @@ public class PricingRulesTest {
 		for (Item item : returnedItems)
 			finalPrice += item.getPrice();
 		Assert.assertTrue(finalPrice == 1949.98);
+	}
+	
+	@Test
+	public void whenScanningMoreVGAsThanMbps(){
+		//Only as many VGA adapters as MacBookPros will be free
+		//if more VGAs are scanned
+		ArrayList<Item> items = new ArrayList<Item>();
+		items.add(Products.getMbp());
+		items.add(Products.getMbp());
+		items.add(Products.getVga());
+		items.add(Products.getVga());
+		items.add(Products.getVga());
+		items.add(Products.getVga());
+		PricingRules pricingRules = new PricingRules();
+		ArrayList<Item> returnedItems = pricingRules.apply(items);
+		double finalPrice = 0;
+		for (Item item : returnedItems)
+			finalPrice += item.getPrice();
+		double expectedPrice = (Products.getMbp().getPrice() * 2) + (Products.getVga().getPrice() * 2);
+		Assert.assertTrue(finalPrice == expectedPrice);
 	}
 }

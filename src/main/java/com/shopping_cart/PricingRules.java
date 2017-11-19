@@ -44,13 +44,20 @@ public class PricingRules {
 		
 		//free VGA adapter with every MacBook Pro
 		String mbpSku = Products.getMbp().getSku();
+		String vgaSku = Products.getVga().getSku();
 		Integer mbpCount = itemCounts.getOrDefault(mbpSku, 0);
-		if (mbpCount > 0)
-			for (int i = 0; i < mbpCount; i++){
+		Integer vgaCount = itemCounts.getOrDefault(vgaSku, 0);
+		if (mbpCount > 0) {
+			for (int i = 0; i < mbpCount-vgaCount; i++){
 				Item vga = Products.getVga();
 				vga.setPrice(0);
 				items.add(vga);
 			}
+			//adjusting the price of pre-scanned VGA adapters
+			items.stream()
+				.filter(item->item.getSku().equals(vgaSku))
+				.forEach(item->item.setPrice(0));
+		}
 		return items;
 	}
 }
